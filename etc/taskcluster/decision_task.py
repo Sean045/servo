@@ -342,7 +342,7 @@ def linux_wpt():
     def linux_run_task(name):
         return linux_task(name).with_dockerfile(dockerfile_path("run"))
     wpt_chunks("Linux x64", linux_run_task, release_build_task, repo_dir="/repo",
-               total_chunks=2, processes=24)
+               total_chunks=10, processes=8)
 
 
 def macos_wpt():
@@ -384,6 +384,7 @@ def wpt_chunks(platform, make_chunk_task, build_task, total_chunks, processes,
                 TOTAL_CHUNKS=str(total_chunks),
                 THIS_CHUNK=str(this_chunk),
                 PROCESSES=str(processes),
+                RUST_LOG="net::http_loader,hyper"
             )
         )
         if this_chunk == chunks[-1]:
